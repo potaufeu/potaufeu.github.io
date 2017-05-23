@@ -12,3 +12,29 @@ position: center center
 </header>
 <p>Lorem ipsum dolor sit amet, magna etiam adipiscing elit. Vivamus in quam eu turpis venenatis euismod eget ac velit. Magna pharetra eleifend urna quis laoreet. Nullam quis urna iaculis metus ornare accumsan. Sed nunc lacus, lobortis nec ante sit amet.</p>
 <p>Vitae quis magna. Sed condimentum dui sed nunc dapibus dignissim. Sed at arcu gravida, vehicula massa ut, consectetur urna. Morbi eu venenatis turpis. In tincidunt pharetra etiam veroeros.</p>
+
+{% assign posts_count = (paginator.posts | size) %}
+qqq
+<div class="home">
+  {% if posts_count > 0 %}
+    <div class="posts">
+      {% for post in paginator.posts %}
+        <div class="post py3">
+          <p class="post-meta">{{ post.date | date: site.date_format }}</p>
+          <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="h1 post-title">{{ post.title }}</h3></a>
+          <span class="post-summary">
+            {% if post.summary %}
+              {{ post.summary }}
+            {% else %}
+              {{ post.excerpt }}
+            {% endif %}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% include pagination.html %}
+  {% else %}
+    <h1 class='center'>{{ site.text.index.coming_soon }}</h1>
+  {% endif %}
+</div>
